@@ -9,7 +9,7 @@ from FlightSearch.models.FlightSearchModel import FlightDetail
 class CitySearch:
     def __init__(self):
         self.base_url = 'https://api.tequila.kiwi.com/'
-        self.api_key = 'WTY_m0ICVqfVqwHr6uDrKdbHgOG5KPD7'
+        self.api_key = ''
 
     def get_destination_code(self, data: str) -> CitySearchModel:
         # include api_key on the headers
@@ -28,7 +28,7 @@ class CitySearch:
 class FlightSearch:
     def __init__(self):
         self.base_url = 'https://api.tequila.kiwi.com'
-        self.api_key = 'WTY_m0ICVqfVqwHr6uDrKdbHgOG5KPD7'
+        self.api_key = ''
 
     def check_flights(self, origin_city_code, destination_city_code, from_time, to_time) -> FlightDetail:
         headers = {"apikey": self.api_key}
@@ -53,7 +53,7 @@ class FlightSearch:
         try:
             data = response.json()['data'][0]
             print(len(response.json()['data']))
-            return FlightDetail(**data)
+            return response.json()['data'][0]
         except IndexError:
             print(f"No flights found for {destination_city_code}.")
             return None
@@ -65,6 +65,6 @@ class FlightSearch:
 fs = FlightSearch()
 tomorrow = datetime.now() + timedelta(days=1)
 six_month_from_today = datetime.now() + timedelta(days=(6 * 30))
-values = fs.check_flights(origin_city_code='BUE', destination_city_code='RIO', from_time=tomorrow, to_time=six_month_from_today)
+values = fs.check_flights(origin_city_code='BUE', destination_city_code='BRC', from_time=tomorrow, to_time=six_month_from_today)
 
-pprint(values.price)
+pprint(values)
