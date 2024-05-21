@@ -12,5 +12,6 @@ if __name__ == '__main__':
     for city in cities:
         if not city.iataCode:
             city_to_update = dict(city)
-            city_to_update['iataCode'] = fs.get_data(city.city)
+            new_iata_code = fs.get_data(city.city)
+            city_to_update['iataCode'] = fs.get_data(city.city).locations[0].code
             data_manager.put_data(city.id, city_to_update)
