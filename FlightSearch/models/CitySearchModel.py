@@ -81,7 +81,7 @@ class Meta(BaseModel):
     locale: Dict[str, str]
 
 
-class FlightSearchModel(BaseModel):
+class CitySearchModel(BaseModel):
     last_refresh: int
     locations: List[LocationDetail]
     meta: Meta
